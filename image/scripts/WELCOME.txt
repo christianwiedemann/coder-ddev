@@ -1,0 +1,16 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                  Welcome to DDEV Coder                      ║
+╚═══════════════════════════════════════════════════════════════╝
+
+This workspace is set up for Drupal development with ddev.
+
+🌐 PUBLISH YOUR PROJECT
+   Go to the coder project page and configure public access.
+
+📚 MORE INFORMATION
+   - Projects: ~/projects/README.md
+   - ddev Documentation: https://ddev.readthedocs.io/
+   - Example config: ~/projects/.ddev/docker-compose.local.yaml.example
+
+Good luck with your project!
+
