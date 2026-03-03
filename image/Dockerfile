@@ -131,22 +131,15 @@ RUN mkdir -p /etc/apt/keyrings && \
 
 # Install DDEV
 # We install DDEV globally so it's available for the coder user and in the PATH
-USER root
 RUN curl -fsSL -L "https://github.com/ddev/ddev/releases/download/v1.24.10/ddev_linux-amd64.v1.24.10.tar.gz" -o /tmp/ddev.tar.gz && \
   tar -xzf /tmp/ddev.tar.gz -C /usr/local/bin && \
   rm /tmp/ddev.tar.gz && \
   chmod +x /usr/local/bin/ddev
 
+RUN npm install -g @fission-ai/openspec@latest opencode-antigravity-auth@latest typescript --unsafe-perm=true --allow-root 2>/dev/null || \
+  echo "Warning: npm global installation for opencode/openspec failed"
+
 USER coder
-RUN npm install -g @fission-ai/openspec@latest 2>/dev/null && \
-  mkdir -p /home/coder/.config/opencode && \
-  cd /home/coder/.config/opencode && \
-  echo '{"name":"opencode-config","private":true}' > package.json && \
-  npm install opencode-antigravity-auth@latest --no-fund --no-audit && \
-  echo '{\n  "plugin": ["opencode-antigravity-auth@latest"],\n  "model": "google/antigravity-gemini-3-pro",\n  "provider": {\n    "google": {}\n  }\n}' > /home/coder/.config/opencode/opencode.json && \
-  mkdir -p /home/coder/.opencode && \
-  ln -sf /home/coder/.config/opencode/opencode.json /home/coder/.opencode/opencode.json || \
-  echo "Warning: npm global installation for opencode failed"
 
 # Verify installation
 RUN ddev --version && \
